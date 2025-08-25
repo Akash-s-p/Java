@@ -64,7 +64,7 @@ public class LearnCompletableFuture
         //this is required to program to wait to complete both the operation
         CompletableFuture<Void> operation=CompletableFuture.allOf(userA,userB);
 
-        operation.join()
+        operation.join();
         long end=System.currentTimeMillis();
 
         System.out.println(userA.join());
