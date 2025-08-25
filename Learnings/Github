@@ -1,0 +1,4 @@
+1) when you create a new Branch locally if you want to push it to git you nee to follow below step
+  -> your IntelliJ will ask for remote URL while pushing your repository to Remote
+  -> you need to create new repository from remote and add it here int here while pushing
+  ->link looks something like this https://github.com/Akash-s-p/Java.git
