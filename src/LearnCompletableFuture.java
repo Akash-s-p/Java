@@ -40,7 +40,7 @@ public class LearnCompletableFuture
 {
     static CompletableFuture<String> getData(String a)
     {
-        //supplyAsync is a method that can run in a backgroud that expects a mthos and return a result
+        //supplyAsync is a method that can run in a background that expects a methods and return a result
        return CompletableFuture.supplyAsync
      (
                supplyMethod(a)
@@ -48,7 +48,6 @@ public class LearnCompletableFuture
     }
     static Supplier<String> supplyMethod(String name)
     {
-        long start=System.currentTimeMillis();
         try{
             Thread.sleep(1000);
         }
