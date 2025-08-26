@@ -1,3 +1,4 @@
+package LearnCompletableFuture;
 // Learning on SupplyAsync Method
 /*
     We are learning here why we are Using CompletableFuture in my project
@@ -36,7 +37,7 @@
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class LearnCompletableFuture
+public class LearnSupplyAsync
 {
     static CompletableFuture<String> getData(String a)
     {
