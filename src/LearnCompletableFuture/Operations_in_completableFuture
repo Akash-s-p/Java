@@ -1,0 +1,96 @@
+
+### 🔹 1. Running Tasks Asynchronously
+
+These are starting points:
+
+* *runAsync(Runnable)* → runs a task in the background but returns no result (void).
+* *supplyAsync(Supplier<T>)* → runs a task in the background and returns a result.
+
+👉 Example:
+
+java
+CompletableFuture<Void> f1 = CompletableFuture.runAsync(() -> {
+    System.out.println("Task without result running...");
+});
+
+CompletableFuture<String> f2 = CompletableFuture.supplyAsync(() -> {
+    return "Hello from async task!";
+});
+
+
+---
+
+### 🔹 2. Transforming Results (map-like)
+
+* *thenApply(Function<T, U>)* → transform the result into another value.
+* *thenAccept(Consumer<T>)* → consumes the result, doesn’t return anything.
+* *thenRun(Runnable)* → ignores result and just runs another task.
+
+👉 Example:
+
+java
+CompletableFuture<String> f = CompletableFuture.supplyAsync(() -> "Akash")
+    .thenApply(name -> "Hello " + name)   // transforms value
+    .thenApply(msg -> msg + ", welcome!");
+
+System.out.println(f.join()); // "Hello Akash, welcome!"
+
+
+---
+
+### 🔹 3. Combining Multiple Futures
+
+* *thenCombine(future, fn)* → wait for both futures and combine their results.
+* *thenCompose(fn)* → chain one async task after another.
+* *allOf(...)* → wait for all futures to finish.
+* *anyOf(...)* → wait for any one future to finish.
+
+👉 Example (thenCombine):
+
+java
+CompletableFuture<Integer> f1 = CompletableFuture.supplyAsync(() -> 10);
+CompletableFuture<Integer> f2 = CompletableFuture.supplyAsync(() -> 20);
+
+CompletableFuture<Integer> sum = f1.thenCombine(f2, (a, b) -> a + b);
+System.out.println(sum.join()); // 30
+
+
+---
+
+### 🔹 4. Handling Errors
+
+* *exceptionally(fn)* → recover from errors by giving a fallback value.
+* *handle(fn)* → handle both success and failure in one place.
+
+👉 Example:
+
+java
+CompletableFuture<Integer> f = CompletableFuture.supplyAsync(() -> {
+    if (true) throw new RuntimeException("Something failed");
+    return 42;
+}).exceptionally(ex -> {
+    System.out.println("Error: " + ex.getMessage());
+    return -1;
+});
+
+System.out.println(f.join()); // prints -1
+
+
+---
+
+### 🔹 5. Waiting / Joining
+
+* *join()* → waits and returns result, throws unchecked exception if failed.
+* *get()* → same as join, but checked exceptions.
+* *complete(value)* → manually complete a future with value.
+* *cancel()* → cancel a future.
+
+---
+
+✅ So to remember easily:
+
+* *runAsync / supplyAsync* → starting
+* *thenApply / thenAccept / thenRun* → transformations
+* *thenCombine / thenCompose / allOf / anyOf* → combining
+* *exceptionally / handle* → error handling
+* *join / get* → waiting
